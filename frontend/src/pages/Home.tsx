@@ -21,17 +21,17 @@ const Home: React.FC = () => {
           <h1 className="mb-6 inline-block relative">
             <CyberLogo text="404's Blog" size="xl" glitchIntensity="medium" className="clip-text font-cyber text-6xl" />
           </h1>
-          <p className="text-gray-400 mt-6 text-xl font-tech leading-relaxed max-w-2xl mx-auto">
+          <p className="text-light-600 dark:text-gray-400 mt-6 text-xl font-mono leading-relaxed max-w-2xl mx-auto">
             Cybersecurity research • Ethical hacking • Vulnerability analysis
           </p>
-          <div className="flex items-center justify-center gap-8 mt-8 text-sm text-gray-500">
+          <div className="flex items-center justify-center gap-8 mt-8 text-sm text-light-500 dark:text-gray-500">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyber-500 rounded-full animate-pulse"></span>
-              <span className="font-tech">{posts.length} Articles Published</span>
+              <span className="font-mono">{posts.length} Articles Published</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyber-500 rounded-full animate-pulse"></span>
-              <span className="font-tech">5 Active Categories</span>
+              <span className="font-mono">5 Active Categories</span>
             </div>
           </div>
         </div>
@@ -47,8 +47,8 @@ const Home: React.FC = () => {
               </div>
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-cyber font-bold text-white mb-4">Welcome to the Archives</h2>
-              <p className="text-gray-300 mb-6 leading-relaxed font-tech">
+              <h2 className="text-2xl font-cyber font-bold text-light-800 dark:text-white mb-4">Welcome to the Posts</h2>
+              <p className="text-light-600 dark:text-gray-300 mb-6 leading-relaxed font-mono">
                 Dive deep into the world of cybersecurity with comprehensive guides on web vulnerabilities, 
                 penetration testing techniques, and cutting-edge security research. From XSS exploits to 
                 advanced authentication bypasses, explore the methodologies that keep the digital world secure.
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
                 to="/blog" 
                 className="cyber-btn inline-flex items-center gap-2"
               >
-                <span>Explore Archives</span>
+                <span>Explore Posts</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -71,12 +71,12 @@ const Home: React.FC = () => {
       <div className="mb-16">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-cyber font-bold text-white mb-2">Featured Research</h2>
-            <p className="text-gray-400 font-tech">Latest discoveries and security insights</p>
+            <h2 className="text-3xl font-cyber font-bold text-light-800 dark:text-white mb-2">Featured Research</h2>
+            <p className="text-light-600 dark:text-gray-400 font-mono">Latest discoveries and security insights</p>
           </div>
           <Link 
             to="/blog" 
-            className="flex items-center gap-2 text-cyber-400 hover:text-cyber-300 transition-colors duration-200 font-tech font-medium"
+            className="flex items-center gap-2 text-cyber-400 hover:text-cyber-300 transition-colors duration-200 font-mono font-medium"
           >
             <span>View all</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,9 +100,9 @@ const Home: React.FC = () => {
           </div>
         ) : posts.length === 0 ? (
           <div className="glass-light rounded-2xl p-12 text-center shadow-lg">
-            <div className="text-gray-500 text-6xl mb-4">📝</div>
-            <h3 className="text-xl font-cyber font-bold text-gray-400 mb-2">No Posts Available</h3>
-            <p className="text-gray-500 font-tech">Check back soon for new security research and tutorials.</p>
+            <div className="text-light-400 dark:text-gray-500 text-6xl mb-4">📝</div>
+            <h3 className="text-xl font-cyber font-bold text-light-600 dark:text-gray-400 mb-2">No Posts Available</h3>
+            <p className="text-light-500 dark:text-gray-500 font-tech">Check back soon for new security research and tutorials.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -115,7 +115,7 @@ const Home: React.FC = () => {
                   <div className="p-6 flex flex-col h-full">
                     {/* Category & Icon */}
                     <div className="flex items-center justify-between mb-4">
-                      <span className="inline-block px-3 py-1 text-xs font-tech font-medium bg-cyber-900/50 border border-cyber-600/30 text-cyber-300 rounded-full">
+                      <span className="inline-block px-3 py-1 text-xs font-tech font-medium bg-cyber-100 dark:bg-cyber-900/50 border border-cyber-200 dark:border-cyber-600/30 text-cyber-700 dark:text-cyber-300 rounded-full">
                         {post.category.toUpperCase()}
                       </span>
                       <div className="w-10 h-10 bg-gradient-to-br from-cyber-500 to-cyber-700 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-cyber-500/50 transition-all duration-300">
@@ -129,27 +129,27 @@ const Home: React.FC = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-cyber font-bold text-white mb-3 group-hover:text-cyber-300 transition-colors duration-200 line-clamp-2 flex-grow">
+                    <h3 className="text-xl font-cyber font-bold text-light-800 dark:text-white mb-3 group-hover:text-cyber-600 dark:group-hover:text-cyber-300 transition-colors duration-200 line-clamp-2 flex-grow">
                       {post.title}
                     </h3>
 
                     {/* Excerpt */}
-                    <p className="text-gray-400 text-sm font-tech leading-relaxed mb-6 line-clamp-3">
+                    <p className="text-light-600 dark:text-gray-400 text-sm font-tech leading-relaxed mb-6 line-clamp-3">
                       {post.excerpt}
                     </p>
 
                     {/* Metadata */}
-                    <div className="flex items-center justify-between pt-4 border-t border-cyber-600/20 mt-auto">
-                      <div className="flex items-center gap-4 text-xs text-gray-500">
-                        <span className="font-tech">
+                    <div className="flex items-center justify-between pt-4 border-t border-light-300 dark:border-cyber-600/20 mt-auto">
+                      <div className="flex items-center gap-4 text-xs text-light-500 dark:text-gray-500">
+                        <span className="font-mono">
                           {new Date(post.created_at).toLocaleDateString('en-GB', {
                             day: '2-digit',
                             month: '2-digit'
                           })}
                         </span>
-                        <span className="font-tech">{calculateReadTime(post.excerpt)} min</span>
+                        <span className="font-mono">{calculateReadTime(post.excerpt)} min</span>
                       </div>
-                      <div className="flex items-center gap-1 text-cyber-400 text-sm font-tech font-medium">
+                      <div className="flex items-center gap-1 text-cyber-400 text-sm font-mono font-medium">
                         <span>Read</span>
                         <svg className="w-3 h-3 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -172,15 +172,15 @@ const Home: React.FC = () => {
               <span className="text-xl">👤</span>
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-cyber font-bold text-white mb-3">About Spid3r</h3>
-              <p className="text-gray-300 mb-4 font-tech leading-relaxed">
+              <h3 className="text-xl font-cyber font-bold text-light-800 dark:text-white mb-3">About GnuTLam</h3>
+              <p className="text-light-600 dark:text-gray-300 mb-4 font-mono leading-relaxed">
                 Cybersecurity researcher with 5+ years of experience in web application security, 
                 vulnerability research, and penetration testing. Passionate about sharing knowledge 
                 and advancing security practices.
               </p>
               <Link 
                 to="/about" 
-                className="inline-flex items-center gap-2 text-cyber-400 hover:text-cyber-300 transition-colors duration-200 font-tech font-medium"
+                className="inline-flex items-center gap-2 text-cyber-400 hover:text-cyber-300 transition-colors duration-200 font-mono font-medium"
               >
                 <span>Learn more</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,8 +197,8 @@ const Home: React.FC = () => {
               <span className="text-xl">🔔</span>
             </div>
             <div className="flex-1">
-              <h3 className="text-xl font-cyber font-bold text-white mb-3">Stay Updated</h3>
-              <p className="text-gray-300 mb-4 font-tech leading-relaxed">
+              <h3 className="text-xl font-cyber font-bold text-light-800 dark:text-white mb-3">Stay Updated</h3>
+              <p className="text-light-600 dark:text-gray-300 mb-4 font-mono leading-relaxed">
                 Get notified about new research publications, security advisories, and 
                 in-depth technical analyses. No spam, just quality security content.
               </p>
@@ -206,9 +206,9 @@ const Home: React.FC = () => {
                 <input 
                   type="email" 
                   placeholder="your@email.com" 
-                  className="flex-1 px-4 py-2 bg-dark-800/80 border border-cyber-600/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyber-500 text-white placeholder-gray-400 font-tech"
+                  className="flex-1 px-4 py-2 bg-light-100 dark:bg-dark-800/80 border border-light-300 dark:border-cyber-600/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyber-500 text-light-800 dark:text-white placeholder-light-500 dark:placeholder-gray-400 font-mono"
                 />
-                <button className="px-4 py-2 bg-cyber-600 hover:bg-cyber-500 text-white rounded-lg transition-colors duration-200 font-tech font-medium">
+                <button className="px-4 py-2 bg-cyber-600 hover:bg-cyber-500 text-white rounded-lg transition-colors duration-200 font-mono font-medium">
                   Subscribe
                 </button>
               </div>

@@ -3,21 +3,32 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
+      spacing: {
+        '50': '12.5rem',  // 200px
+        '60': '15rem',    // 240px
+        '72': '18rem',    // 288px
+      },
+      width: {
+        '50': '12.5rem',  // 200px
+        '60': '15rem',    // 240px
+        '72': '18rem',    // 288px
+      },
       colors: {
         cyber: {
-          50: '#f3f1ff',
-          100: '#ebe5ff',
-          200: '#d9ceff',
-          300: '#bea6ff',
-          400: '#9f75ff',
-          500: '#843dff',
-          600: '#7c2af7',
-          700: '#6b1de3',
-          800: '#5a18bf',
-          900: '#4c169c',
-          950: '#2e0a6a',
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
+          950: '#082f49',
         },
         dark: {
           50: '#f8fafc',
@@ -31,11 +42,26 @@ module.exports = {
           800: '#1e293b',
           900: '#0f172a',
           950: '#020617',
+        },
+        light: {
+          50: '#fefefe',
+          100: '#f8f9fa',
+          200: '#e9ecef',
+          300: '#dee2e6',
+          400: '#ced4da',
+          500: '#6c757d',
+          600: '#495057',
+          700: '#343a40',
+          800: '#212529',
+          900: '#000000',
+          950: '#ffffff',
         }
       },
       fontFamily: {
         'cyber': ['Orbitron', 'monospace'],
         'tech': ['Rajdhani', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'monospace'],
+        'code': ['JetBrains Mono', 'Courier New', 'monospace'],
       },
       animation: {
         'pulse-soft': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -49,10 +75,10 @@ module.exports = {
         },
         glow: {
           'from': { 
-            'box-shadow': '0 0 20px #843dff44, 0 0 30px #843dff22, 0 0 40px #843dff11' 
+            'box-shadow': '0 0 20px #0ea5e944, 0 0 30px #0ea5e922, 0 0 40px #0ea5e911' 
           },
           'to': { 
-            'box-shadow': '0 0 30px #843dff66, 0 0 40px #843dff44, 0 0 50px #843dff22' 
+            'box-shadow': '0 0 30px #0ea5e966, 0 0 40px #0ea5e944, 0 0 50px #0ea5e922' 
           },
         }
       },
