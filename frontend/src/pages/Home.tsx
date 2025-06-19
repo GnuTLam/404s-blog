@@ -4,7 +4,7 @@ import { useFetchPosts } from '../services/api';
 import CyberLogo from '../components/CyberLogo';
 
 const Home: React.FC = () => {
-  const { posts, loading, error } = useFetchPosts();
+  const { posts, loading, error, pagination } = useFetchPosts();
 
   const calculateReadTime = (content: string) => {
     const wordsPerMinute = 200;
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
           <div className="flex items-center justify-center gap-8 mt-8 text-sm text-light-500 dark:text-gray-500">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyber-500 rounded-full animate-pulse"></span>
-              <span className="font-mono">{posts.length} Articles Published</span>
+              <span className="font-mono">{loading ? '...' : `${pagination?.total || 0} Articles Published`}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyber-500 rounded-full animate-pulse"></span>

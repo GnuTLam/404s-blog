@@ -2,18 +2,31 @@ version: '3.8'
 
 services:
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    build: ./frontend
     ports:
       - "3001:3000"
     volumes:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      - REACT_APP_API_URL=http://localhost:5000
       - CHOKIDAR_USEPOLLING=true
-      - FAST_REFRESH=true
-      - WDS_SOCKET_PORT=3001
+      - REACT_APP_API_URL=http://localhost:5001/api
+
+  backend:
+    build: ./backend
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./backend:/app
+      - /app/__pycache__:/app/__pycache__
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - FLASK_APP=app.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_RUN_PORT=5001
+      - PYTHONUNBUFFERED=1
+    command: flask run --reload
+
 volumes:
   postgres_data: 

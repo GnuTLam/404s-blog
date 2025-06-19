@@ -17,7 +17,6 @@ const CyberLogo: React.FC<CyberLogoProps> = ({
   const [isGlitching, setIsGlitching] = useState(false);
   const [glitchType, setGlitchType] = useState<'normal' | 'colorShift' | 'dataCorruption' | 'matrix'>('normal');
   const [ghostText, setGhostText] = useState('');
-  const [digitalRain, setDigitalRain] = useState<string[]>([]);
 
   const colors = [
     'text-cyber-600 dark:text-cyber-200', 'text-cyber-700 dark:text-cyber-100', 'text-cyber-500 dark:text-cyber-300', 
@@ -128,7 +127,7 @@ const CyberLogo: React.FC<CyberLogoProps> = ({
     }, intensity.interval);
 
     return () => clearInterval(glitchInterval);
-  }, [text, intensity]);
+  }, [text, intensity, binaryChars, glitchChars, hexChars, matrixChars]);
 
   const getGlitchStyle = (char: string, index: number) => {
     const baseStyle = {

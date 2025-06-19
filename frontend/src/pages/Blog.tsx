@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useFetchPosts } from '../services/api';
 
 const Blog: React.FC = () => {
-  const { posts, loading, error } = useFetchPosts();
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const postsPerPage = 10;
+  
+  const { posts, loading, error, pagination } = useFetchPosts(currentPage, activeCategory);
+  
+  // Reset page when category changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory]);
 
   // Mock function to calculate reading time
   const calculateReadTime = (content: string) => {
@@ -16,28 +21,22 @@ const Blog: React.FC = () => {
   };
 
   const categories = [
-    { name: 'all', label: 'All Posts', count: posts.length },
-    { name: 'xss', label: 'XSS', count: posts.filter(p => p.category === 'xss').length },
-    { name: 'sqli', label: 'SQL Injection', count: posts.filter(p => p.category === 'sqli').length },
-    { name: 'csrf', label: 'CSRF', count: posts.filter(p => p.category === 'csrf').length },
-    { name: 'auth', label: 'Authentication', count: posts.filter(p => p.category === 'auth').length },
-    { name: 'pentest', label: 'Penetration Testing', count: posts.filter(p => p.category === 'pentest').length },
+    { name: 'all', label: 'All Posts', count: pagination?.total || 0 },
+    { name: 'xss', label: 'XSS', count: 0 }, // Will be updated with real API
+    { name: 'sqli', label: 'SQL Injection', count: 0 },
+    { name: 'csrf', label: 'CSRF', count: 0 },
+    { name: 'auth', label: 'Authentication', count: 0 },
+    { name: 'pentest', label: 'Penetration Testing', count: 0 },
   ];
 
-  const filteredPosts = posts.filter(post => 
-    activeCategory === 'all' || post.category === activeCategory
-  );
+  // Use API-provided posts directly (already filtered and paginated)
+  const currentPosts = posts;
+  const totalPages = pagination?.totalPages || 1;
 
-  // Pagination logic
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-  const startIndex = (currentPage - 1) * postsPerPage;
-  const endIndex = startIndex + postsPerPage;
-  const currentPosts = filteredPosts.slice(startIndex, endIndex);
-
-  // Reset to page 1 when category changes
+  // Handle category change
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
-    setCurrentPage(1);
+    // setCurrentPage(1) is handled by useEffect
   };
 
   const handlePageChange = (page: number) => {
@@ -126,11 +125,11 @@ const Blog: React.FC = () => {
           <div className="flex items-center justify-center gap-6 mt-6 text-sm text-light-500 dark:text-gray-500">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyber-500 rounded-full animate-pulse"></span>
-              <span className="font-mono">{posts.length} Articles</span>
+              <span className="font-mono">{loading ? '...' : `${pagination?.total || 0}`} Articles</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyber-500 rounded-full animate-pulse"></span>
-              <span className="font-mono">6 Categories</span>
+              <span className="font-mono">{loading ? '...' : `${categories.length - 1}`} Categories</span>
             </div>
           </div>
         </div>
@@ -142,7 +141,7 @@ const Blog: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-cyber font-bold text-light-800 dark:text-white">Categories</h3>
             <span className="text-sm text-light-500 dark:text-gray-400 font-mono">
-              {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} • Page {currentPage} of {totalPages}
+              {pagination?.total || 0} post{(pagination?.total || 0) !== 1 ? 's' : ''} • Page {currentPage} of {totalPages}
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -167,7 +166,7 @@ const Blog: React.FC = () => {
       </div>
 
       {/* Top Pagination */}
-      {!loading && !error && filteredPosts.length > 0 && (
+      {!loading && !error && currentPosts.length > 0 && (
         <div className="mb-8">
           <PaginationComponent />
         </div>
@@ -285,7 +284,7 @@ const Blog: React.FC = () => {
         )}
 
         {/* Bottom Pagination */}
-        {!loading && !error && filteredPosts.length > 0 && (
+        {!loading && !error && currentPosts.length > 0 && (
           <div className="mt-12">
             <PaginationComponent />
           </div>

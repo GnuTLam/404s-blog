@@ -1,205 +1,141 @@
-// Mock API service for development without backend
-
+// API service for development and production
 import { useState, useEffect } from 'react';
+import { config, getApiUrl } from '../config/env';
+import { Post, mockPosts, categoryInfo } from '../data/mockData';
 
-// Mock data types
-export interface Post {
-  id: number;
-  title: string;
-  content: string;
-  excerpt: string;
-  created_at: string;
-  author: string;
-  category: string;
+// API Response types
+export interface ApiResponse<T> {
+  data: T;
+  success: boolean;
+  message?: string;
 }
 
-// Generate mock posts
-const generateMockPosts = (): Post[] => {
-  const categories = ['xss', 'sqli', 'csrf', 'auth', 'pentest'];
-  const titles = [
-    "XSSing TypeErrors in Safari",
-    "valueOf: Another way to get this",
-    "Making the Unexploitable Exploitable with X-Mixed-Replace on Firefox",
-    "The curious case of the evt parameter",
-    "Hacking rooms",
-    "CSS-Only Tic Tac Toe Challenge",
-    "Advanced SQL Injection in Modern Applications",
-    "CSRF Tokens Bypass Techniques",
-    "JWT Authentication Vulnerabilities",
-    "Server-Side Template Injection (SSTI) Analysis",
-    "Race Conditions in Authentication Systems",
-    "DOM-based XSS in Single Page Applications",
-    "Blind SQL Injection with Time-based Techniques",
-    "Cross-Origin Resource Sharing (CORS) Misconfigurations",
-    "Session Fixation Attacks in Web Applications",
-    "HTTP Parameter Pollution Vulnerabilities",
-    "XML External Entity (XXE) Injection Explained",
-    "Insecure Direct Object References (IDOR) Exploitation",
-    "Command Injection through File Upload",
-    "Local File Inclusion (LFI) to Remote Code Execution",
-    "NoSQL Injection in MongoDB Applications",
-    "GraphQL Security Testing Methodology",
-    "OAuth 2.0 Implementation Vulnerabilities",
-    "WebSocket Security Testing Techniques",
-    "Content Security Policy (CSP) Bypass Methods",
-    "Server-Side Request Forgery (SSRF) Deep Dive",
-    "Prototype Pollution in Node.js Applications",
-    "Deserialization Attacks in Java Applications",
-    "Path Traversal Vulnerabilities Analysis",
-    "Business Logic Flaws in E-commerce Platforms",
-    "API Security Testing with Postman and Burp",
-    "Mobile Application Penetration Testing",
-    "Docker Container Security Assessment",
-    "Kubernetes Security Hardening Guide",
-    "Cloud Security Misconfigurations in AWS",
-    "Red Team Operations: Initial Access Techniques",
-    "Active Directory Penetration Testing",
-    "Network Segmentation Testing Methodology",
-    "Social Engineering Attack Vectors",
-    "Phishing Campaign Development and Analysis",
-    "Wireless Network Security Assessment",
-    "IoT Device Security Testing Framework",
-    "Blockchain Smart Contract Vulnerabilities",
-    "Machine Learning Model Security Testing",
-    "DevSecOps Integration Best Practices",
-    "Incident Response Automation Tools",
-    "Threat Hunting with SIEM Solutions",
-    "Malware Analysis and Reverse Engineering",
-    "Digital Forensics Investigation Techniques",
-    "Zero-Day Vulnerability Research Process"
-  ];
+export interface PaginatedResponse<T> {
+  data: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
 
-  const excerpts = [
-    "Exploiting Safari's JavaScript error handling for XSS attacks",
-    "Exploring JavaScript's valueOf() method for security implications",
-    "Using X-Mixed-Replace to create exploitable conditions in Firefox",
-    "Exploiting event parameter handling in JavaScript applications",
-    "Analyzing security issues in controlled testing environments",
-    "Security implications of CSS-only interactive implementations",
-    "Advanced techniques for exploiting SQL injection vulnerabilities in modern web applications",
-    "Comprehensive analysis of CSRF token bypass methods and prevention strategies",
-    "Common JWT implementation flaws and exploitation techniques",
-    "Server-side template injection vulnerabilities and exploitation methods",
-    "Race condition vulnerabilities in authentication and session management",
-    "DOM-based XSS vulnerabilities in modern single-page applications",
-    "Blind SQL injection exploitation using time-based detection techniques",
-    "CORS misconfiguration vulnerabilities and their security implications",
-    "Session fixation attack vectors and prevention mechanisms",
-    "HTTP parameter pollution vulnerabilities in web application security",
-    "XML External Entity injection attacks and mitigation strategies",
-    "Insecure direct object reference vulnerabilities and exploitation",
-    "Command injection vulnerabilities through file upload functionality",
-    "Local file inclusion to remote code execution exploitation chains",
-    "NoSQL injection techniques targeting MongoDB and similar databases",
-    "GraphQL security testing methodology and common vulnerabilities",
-    "OAuth 2.0 implementation vulnerabilities and attack vectors",
-    "WebSocket security testing techniques and common vulnerabilities",
-    "Content Security Policy bypass methods and implementation flaws",
-    "Server-side request forgery vulnerabilities and exploitation techniques",
-    "Prototype pollution vulnerabilities in Node.js application security",
-    "Java deserialization attack vectors and exploitation techniques",
-    "Path traversal vulnerability analysis and exploitation methods",
-    "Business logic flaw identification in e-commerce platform security",
-    "API security testing methodology using automated tools",
-    "Mobile application penetration testing framework and methodology",
-    "Docker container security assessment and hardening techniques",
-    "Kubernetes security hardening and vulnerability assessment",
-    "AWS cloud security misconfiguration identification and remediation",
-    "Red team initial access techniques and attack methodology",
-    "Active Directory penetration testing and privilege escalation",
-    "Network segmentation testing methodology and assessment techniques",
-    "Social engineering attack vector analysis and prevention strategies",
-    "Phishing campaign development and effectiveness analysis",
-    "Wireless network security assessment and penetration testing",
-    "IoT device security testing framework and vulnerability assessment",
-    "Blockchain smart contract vulnerability analysis and testing",
-    "Machine learning model security testing and adversarial attacks",
-    "DevSecOps integration best practices and security automation",
-    "Incident response automation tools and workflow optimization",
-    "Threat hunting methodology using SIEM and security analytics",
-    "Malware analysis and reverse engineering techniques",
-    "Digital forensics investigation methodology and tool usage",
-    "Zero-day vulnerability research process and responsible disclosure"
-  ];
-
-  const authors = [
-    "Security Researcher",
-    "Web Security Expert", 
-    "Browser Security Analyst",
-    "JavaScript Security Researcher",
-    "Ethical Hacker",
-    "CSS Security Specialist",
-    "Penetration Tester",
-    "Application Security Engineer",
-    "Bug Bounty Hunter",
-    "Cybersecurity Analyst"
-  ];
-
-  const posts: Post[] = [];
-  const now = new Date();
-
-  for (let i = 1; i <= 50; i++) {
-    const categoryIndex = (i - 1) % categories.length;
-    const titleIndex = (i - 1) % titles.length;
-    const excerptIndex = (i - 1) % excerpts.length;
-    const authorIndex = (i - 1) % authors.length;
-    
-    // Create dates going backwards from now
-    const daysBack = i * 2;
-    const postDate = new Date(now.getTime() - (daysBack * 24 * 60 * 60 * 1000));
-
-    posts.push({
-      id: i,
-      title: titles[titleIndex],
-      content: `<p>This is a comprehensive analysis of ${titles[titleIndex].toLowerCase()}.</p>
-        <p>In this detailed post, we'll explore the technical aspects and security implications of this vulnerability.</p>
-        <h2>Technical Analysis</h2>
-        <p>The vulnerability involves multiple attack vectors and requires careful consideration of the security context.</p>
-        <pre><code>// Example exploitation code
-        function exploit() {
-          // Demonstration of the vulnerability
-          console.log("Security research purposes only");
-        }</code></pre>
-        <h2>Mitigation Strategies</h2>
-        <p>Proper security controls and defensive programming techniques can prevent this type of attack.</p>
-        <h2>Conclusion</h2>
-        <p>Understanding these vulnerabilities is crucial for building secure applications and systems.</p>`,
-      excerpt: excerpts[excerptIndex],
-      created_at: postDate.toISOString(),
-      author: authors[authorIndex],
-      category: categories[categoryIndex]
-    });
+// API Error class
+export class ApiError extends Error {
+  constructor(public status: number, message: string) {
+    super(message);
+    this.name = 'ApiError';
   }
+}
 
-  return posts;
+// Generic fetch wrapper for future real API calls
+const apiRequest = async <T>(
+  endpoint: string,
+  options: RequestInit = {}
+): Promise<ApiResponse<T>> => {
+  const url = getApiUrl(endpoint);
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), config.apiTimeout);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new ApiError(response.status, `HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return { data, success: true };
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error instanceof Error) {
+      throw new ApiError(500, error.message);
+    }
+    throw new ApiError(500, 'Unknown error occurred');
+  }
 };
 
-// Mock data
-const mockPosts: Post[] = generateMockPosts();
+// Mock API simulation delay
+const simulateApiDelay = (ms: number = 500): Promise<void> => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
 
-
-// Mock API functions
-export const useFetchPosts = () => {
+// Posts API hooks
+export const useFetchPosts = (page: number = 1, category?: string) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: config.postsPerPage,
+    total: 0,
+    totalPages: 0,
+  });
 
   useEffect(() => {
-    // Simulate API delay
-    const timer = setTimeout(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
-        setPosts(mockPosts);
-        setLoading(false);
+        if (config.enableMockData) {
+          // Mock data simulation
+          await simulateApiDelay(300);
+          
+          let filteredPosts = mockPosts;
+          
+          // Filter by category if specified
+          if (category && category !== 'all') {
+            filteredPosts = mockPosts.filter(post => post.category === category);
+          }
+
+          // Calculate pagination
+          const total = filteredPosts.length;
+          const totalPages = Math.ceil(total / config.postsPerPage);
+          const startIndex = (page - 1) * config.postsPerPage;
+          const endIndex = startIndex + config.postsPerPage;
+          const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+
+          setPosts(paginatedPosts);
+          setPagination({
+            page,
+            limit: config.postsPerPage,
+            total,
+            totalPages,
+          });
+        } else {
+          // Real API call would go here
+          const response = await apiRequest<PaginatedResponse<Post>>(
+            `/posts?page=${page}&limit=${config.postsPerPage}${category ? `&category=${category}` : ''}`
+          );
+          
+          setPosts(response.data.data);
+          setPagination(response.data.pagination);
+        }
       } catch (err) {
-        setError('Failed to fetch posts');
+        const errorMessage = err instanceof ApiError ? err.message : 'Failed to fetch posts';
+        setError(errorMessage);
+        if (config.debugMode) {
+          console.error('Posts fetch error:', err);
+        }
+      } finally {
         setLoading(false);
       }
-    }, 800);
+    };
 
-    return () => clearTimeout(timer);
-  }, []);
+    fetchPosts();
+  }, [page, category]);
 
-  return { posts, loading, error };
+  return { posts, loading, error, pagination };
 };
 
 export const useFetchPost = (id: string | undefined) => {
@@ -209,29 +145,134 @@ export const useFetchPost = (id: string | undefined) => {
 
   useEffect(() => {
     if (!id) {
-      setError('Post ID is required');
       setLoading(false);
       return;
     }
 
-    // Simulate API delay
-    const timer = setTimeout(() => {
+    const fetchPost = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
-        const foundPost = mockPosts.find(p => p.id === parseInt(id));
-        if (foundPost) {
+        if (config.enableMockData) {
+          // Mock data simulation
+          await simulateApiDelay(200);
+          
+          const foundPost = mockPosts.find(p => p.id === parseInt(id));
+          if (!foundPost) {
+            throw new ApiError(404, 'Post not found');
+          }
+          
           setPost(foundPost);
         } else {
-          setError('Post not found');
+          // Real API call would go here
+          const response = await apiRequest<Post>(`/posts/${id}`);
+          setPost(response.data);
         }
-        setLoading(false);
       } catch (err) {
-        setError('Failed to fetch post');
+        const errorMessage = err instanceof ApiError ? err.message : 'Failed to fetch post';
+        setError(errorMessage);
+        if (config.debugMode) {
+          console.error('Post fetch error:', err);
+        }
+      } finally {
         setLoading(false);
       }
-    }, 800);
+    };
 
-    return () => clearTimeout(timer);
+    fetchPost();
   }, [id]);
 
   return { post, loading, error };
-}; 
+};
+
+// Categories API
+export const useFetchCategories = () => {
+  const [categories, setCategories] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        if (config.enableMockData) {
+          await simulateApiDelay(150);
+          
+          // Generate category data with post counts
+          const categoryData = Object.entries(categoryInfo).map(([key, info]) => ({
+            id: key,
+            name: info.name,
+            slug: key,
+            icon: info.icon,
+            color: info.color,
+            post_count: mockPosts.filter(post => post.category === key).length
+          }));
+
+          setCategories(categoryData);
+        } else {
+          // Real API call would go here
+          const response = await apiRequest<any[]>('/categories');
+          setCategories(response.data);
+        }
+      } catch (err) {
+        const errorMessage = err instanceof ApiError ? err.message : 'Failed to fetch categories';
+        setError(errorMessage);
+        if (config.debugMode) {
+          console.error('Categories fetch error:', err);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  return { categories, loading, error };
+};
+
+// Utility functions for future use
+export const searchPosts = async (query: string): Promise<Post[]> => {
+  if (config.enableMockData) {
+    await simulateApiDelay(400);
+    return mockPosts.filter(post => 
+      post.title.toLowerCase().includes(query.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(query.toLowerCase()) ||
+      post.content.toLowerCase().includes(query.toLowerCase())
+    );
+  } else {
+    const response = await apiRequest<Post[]>(`/posts/search?q=${encodeURIComponent(query)}`);
+    return response.data;
+  }
+};
+
+export const getPopularPosts = async (limit: number = 5): Promise<Post[]> => {
+  if (config.enableMockData) {
+    await simulateApiDelay(200);
+    // Return first 5 posts as "popular"
+    return mockPosts.slice(0, limit);
+  } else {
+    const response = await apiRequest<Post[]>(`/posts/popular?limit=${limit}`);
+    return response.data;
+  }
+};
+
+export const getRecentPosts = async (limit: number = 5): Promise<Post[]> => {
+  if (config.enableMockData) {
+    await simulateApiDelay(200);
+    // Sort by date and return most recent
+    return mockPosts
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .slice(0, limit);
+  } else {
+    const response = await apiRequest<Post[]>(`/posts/recent?limit=${limit}`);
+    return response.data;
+  }
+};
+
+// Export types and utilities
+export type { Post };
+export { categoryInfo }; 

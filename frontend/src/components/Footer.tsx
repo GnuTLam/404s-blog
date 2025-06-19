@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex items-center gap-2 md:gap-3">
               <a 
-                href="#" 
+                href="#!" 
                 className="w-6 h-6 md:w-8 md:h-8 bg-light-300 dark:bg-cyber-600/20 border border-light-400 dark:border-cyber-600/30 rounded-lg flex items-center justify-center text-light-600 dark:text-gray-400 hover:text-cyber-600 dark:hover:text-cyber-300 hover:bg-light-400 dark:hover:bg-cyber-600/30 transition-all duration-200"
                 aria-label="Twitter"
               >
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
                 </svg>
               </a>
               <a 
-                href="#" 
+                href="#!" 
                 className="w-6 h-6 md:w-8 md:h-8 bg-light-300 dark:bg-cyber-600/20 border border-light-400 dark:border-cyber-600/30 rounded-lg flex items-center justify-center text-light-600 dark:text-gray-400 hover:text-cyber-600 dark:hover:text-cyber-300 hover:bg-light-400 dark:hover:bg-cyber-600/30 transition-all duration-200"
                 aria-label="GitHub"
               >
@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
                 </svg>
               </a>
               <a 
-                href="#" 
+                href="#!" 
                 className="w-6 h-6 md:w-8 md:h-8 bg-light-300 dark:bg-cyber-600/20 border border-light-400 dark:border-cyber-600/30 rounded-lg flex items-center justify-center text-light-600 dark:text-gray-400 hover:text-cyber-600 dark:hover:text-cyber-300 hover:bg-light-400 dark:hover:bg-cyber-600/30 transition-all duration-200"
                 aria-label="LinkedIn"
               >
@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
                 About
               </Link>
               <a 
-                href="#" 
+                href="#!" 
                 className="block text-light-600 dark:text-gray-400 hover:text-cyber-600 dark:hover:text-cyber-300 transition-colors duration-200 font-mono text-xs md:text-sm"
               >
                 Contact
@@ -87,25 +87,25 @@ const Footer: React.FC = () => {
             <h3 className="text-light-800 dark:text-white font-cyber font-bold text-sm md:text-base mb-2 md:mb-3">Categories</h3>
             <div className="space-y-1">
               <a 
-                href="#" 
+                href="#!" 
                 className="block text-light-600 dark:text-gray-400 hover:text-cyber-600 dark:hover:text-cyber-300 transition-colors duration-200 font-mono text-xs md:text-sm"
               >
                 CTF Writeups
               </a>
               <a 
-                href="#" 
+                href="#!" 
                 className="block text-light-600 dark:text-gray-400 hover:text-cyber-600 dark:hover:text-cyber-300 transition-colors duration-200 font-mono text-xs md:text-sm"
               >
                 IoT Security
               </a>
               <a 
-                href="#" 
+                href="#!" 
                 className="block text-light-600 dark:text-gray-400 hover:text-cyber-600 dark:hover:text-cyber-300 transition-colors duration-200 font-mono text-xs md:text-sm"
               >
                 Web Security
               </a>
               <a 
-                href="#" 
+                href="#!" 
                 className="block text-light-600 dark:text-gray-400 hover:text-cyber-600 dark:hover:text-cyber-300 transition-colors duration-200 font-mono text-xs md:text-sm"
               >
                 Digital Forensics
@@ -126,19 +126,19 @@ const Footer: React.FC = () => {
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 text-xs text-light-500 dark:text-gray-500">
               <a 
-                href="#" 
+                href="#!" 
                 className="hover:text-cyber-600 dark:hover:text-cyber-300 transition-colors duration-200 font-mono whitespace-nowrap"
               >
                 Privacy Policy
               </a>
               <a 
-                href="#" 
+                href="#!" 
                 className="hover:text-cyber-600 dark:hover:text-cyber-300 transition-colors duration-200 font-mono whitespace-nowrap"
               >
                 Terms of Use
               </a>
               <a 
-                href="#" 
+                href="#!" 
                 className="hover:text-cyber-600 dark:hover:text-cyber-300 transition-colors duration-200 font-mono whitespace-nowrap"
               >
                 Security
