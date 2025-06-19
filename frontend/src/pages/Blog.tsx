@@ -5,6 +5,8 @@ import { useFetchPosts } from '../services/api';
 const Blog: React.FC = () => {
   const { posts, loading, error } = useFetchPosts();
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const postsPerPage = 10;
 
   // Mock function to calculate reading time
   const calculateReadTime = (content: string) => {
@@ -19,11 +21,95 @@ const Blog: React.FC = () => {
     { name: 'sqli', label: 'SQL Injection', count: posts.filter(p => p.category === 'sqli').length },
     { name: 'csrf', label: 'CSRF', count: posts.filter(p => p.category === 'csrf').length },
     { name: 'auth', label: 'Authentication', count: posts.filter(p => p.category === 'auth').length },
+    { name: 'pentest', label: 'Penetration Testing', count: posts.filter(p => p.category === 'pentest').length },
   ];
 
   const filteredPosts = posts.filter(post => 
     activeCategory === 'all' || post.category === activeCategory
   );
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const currentPosts = filteredPosts.slice(startIndex, endIndex);
+
+  // Reset to page 1 when category changes
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Ultra-Slim Manga-Style Pagination Component
+  const PaginationComponent = () => {
+    if (totalPages <= 1) return null;
+
+    return (
+      <div className="flex items-center justify-center gap-2 py-2">
+        {/* Previous */}
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="w-7 h-7 flex items-center justify-center rounded-full transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-light-500 dark:text-gray-500 hover:bg-cyber-500/10 hover:text-cyber-500"
+        >
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        {/* Page Numbers - Ultra Compact */}
+        <div className="flex items-center gap-0.5">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+            const showPage = page === 1 || page === totalPages || 
+                           (page >= currentPage - 1 && page <= currentPage + 1);
+            
+            if (!showPage) {
+              if (page === currentPage - 2 || page === currentPage + 2) {
+                return (
+                  <span key={page} className="w-6 text-center text-xs text-light-400 dark:text-gray-600">
+                    ⋯
+                  </span>
+                );
+              }
+              return null;
+            }
+
+            return (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`w-7 h-7 flex items-center justify-center rounded-full text-xs font-medium transition-colors ${
+                  currentPage === page
+                    ? 'bg-cyber-500 text-white'
+                    : 'text-light-600 dark:text-gray-400 hover:bg-cyber-500/10 hover:text-cyber-500'
+                }`}
+              >
+                {page}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Next */}
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="w-7 h-7 flex items-center justify-center rounded-full transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-light-500 dark:text-gray-500 hover:bg-cyber-500/10 hover:text-cyber-500"
+        >
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+
+      </div>
+    );
+  };
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -44,7 +130,7 @@ const Blog: React.FC = () => {
             </div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyber-500 rounded-full animate-pulse"></span>
-              <span className="font-mono">5 Categories</span>
+              <span className="font-mono">6 Categories</span>
             </div>
           </div>
         </div>
@@ -56,14 +142,14 @@ const Blog: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-cyber font-bold text-light-800 dark:text-white">Categories</h3>
             <span className="text-sm text-light-500 dark:text-gray-400 font-mono">
-              {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''}
+              {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} • Page {currentPage} of {totalPages}
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <button
                 key={category.name}
-                onClick={() => setActiveCategory(category.name)}
+                onClick={() => handleCategoryChange(category.name)}
                 className={`px-4 py-2 rounded-lg text-sm font-mono font-medium transition-all duration-200 ${
                   activeCategory === category.name
                     ? 'bg-cyber-600 text-white shadow-lg shadow-cyber-600/25'
@@ -80,6 +166,13 @@ const Blog: React.FC = () => {
         </div>
       </div>
 
+      {/* Top Pagination */}
+      {!loading && !error && filteredPosts.length > 0 && (
+        <div className="mb-8">
+          <PaginationComponent />
+        </div>
+      )}
+
       {/* Content */}
       {loading ? (
         <div className="flex justify-center items-center py-20">
@@ -94,7 +187,7 @@ const Blog: React.FC = () => {
           <h3 className="text-xl font-cyber font-bold text-red-300 mb-2">Error Loading Posts</h3>
           <p className="text-red-200/80 font-mono">{error}</p>
         </div>
-      ) : filteredPosts.length === 0 ? (
+      ) : currentPosts.length === 0 ? (
         <div className="glass-light rounded-2xl p-12 text-center shadow-lg">
           <div className="text-light-400 dark:text-gray-500 text-6xl mb-4">📄</div>
           <h3 className="text-xl font-cyber font-bold text-light-600 dark:text-gray-400 mb-2">No Posts Found</h3>
@@ -107,7 +200,7 @@ const Blog: React.FC = () => {
         </div>
       ) : (
         <div className="space-y-6">
-          {filteredPosts.map((post, index) => (
+          {currentPosts.map((post, index) => (
             <article 
               key={post.id} 
               className="group glass rounded-2xl overflow-hidden hover-lift card-glow transition-all duration-300"
@@ -122,7 +215,8 @@ const Blog: React.FC = () => {
                           {post.category === 'xss' ? '🔥' : 
                            post.category === 'sqli' ? '💉' :
                            post.category === 'csrf' ? '🔐' :
-                           post.category === 'auth' ? '🗝️' : '🛡️'}
+                           post.category === 'auth' ? '🗝️' : 
+                           post.category === 'pentest' ? '⚔️' : '🛡️'}
                         </span>
                       </div>
                     </div>
@@ -186,11 +280,18 @@ const Blog: React.FC = () => {
                 </div>
               </Link>
             </article>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
+                      ))}
+          </div>
+        )}
+
+        {/* Bottom Pagination */}
+        {!loading && !error && filteredPosts.length > 0 && (
+          <div className="mt-12">
+            <PaginationComponent />
+          </div>
+        )}
+      </div>
+    );
+  };
 
 export default Blog; 

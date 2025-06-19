@@ -44,17 +44,17 @@ module.exports = {
           950: '#020617',
         },
         light: {
-          50: '#fefefe',
-          100: '#f8f9fa',
-          200: '#e9ecef',
-          300: '#dee2e6',
-          400: '#ced4da',
-          500: '#6c757d',
-          600: '#495057',
-          700: '#343a40',
-          800: '#212529',
-          900: '#000000',
-          950: '#ffffff',
+          50: '#faf9f7',          // Warm off-white background
+          100: '#f5f4f1',         // Soft cream background  
+          200: '#ede9e3',         // Light warm borders
+          300: '#e2ddd4',         // Subtle warm borders
+          400: '#adb5bd',         // Placeholder text - improved contrast
+          500: '#495057',         // Secondary text - improved contrast
+          600: '#343a40',         // Primary secondary text - improved contrast  
+          700: '#2c3034',         // Primary text - improved contrast
+          800: '#1a1d20',         // High contrast text - improved contrast
+          900: '#000000',         // Pure black for maximum contrast
+          950: '#fdfdfc',         // Soft white instead of pure white
         }
       },
       fontFamily: {
@@ -67,6 +67,9 @@ module.exports = {
         'pulse-soft': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 3s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
+      },
+      lineClamp: {
+        4: '4',
       },
       keyframes: {
         float: {

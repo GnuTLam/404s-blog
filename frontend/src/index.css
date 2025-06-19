@@ -11,12 +11,12 @@
     radial-gradient(at 82% 65%, hsl(220, 45%, 9%) 0px, transparent 55%);
 }
 
-/* Background pattern - Light mode - Softer, warmer background */
+/* Background pattern - Light mode - Warmer, softer background */
 .light body {
-  background: #f8f9fa;
+  background: #f5f4f1;
   background-image: 
-    radial-gradient(at 47% 33%, hsl(210, 8%, 97%) 0px, transparent 59%),
-    radial-gradient(at 82% 65%, hsl(220, 6%, 95%) 0px, transparent 55%);
+    radial-gradient(at 47% 33%, hsl(35, 15%, 97%) 0px, transparent 59%),
+    radial-gradient(at 82% 65%, hsl(30, 12%, 95%) 0px, transparent 55%);
 }
 
 .cyber-grid {
@@ -35,30 +35,62 @@
 
 /* Additional light mode text improvements */
 .light .glass {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(253, 253, 252, 0.9);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(222, 226, 230, 0.3);
+  border: 1px solid rgba(226, 221, 212, 0.3);
   box-shadow: 0 8px 32px rgba(108, 117, 125, 0.1);
 }
 
 .light .glass-light {
-  background: rgba(248, 249, 250, 0.8);
+  background: rgba(245, 244, 241, 0.8);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(222, 226, 230, 0.2);
+  border: 1px solid rgba(226, 221, 212, 0.2);
   box-shadow: 0 4px 16px rgba(108, 117, 125, 0.08);
 }
 
 /* Improved text contrast for light mode */
 .light .text-primary {
-  color: #212529;
+  color: #1a1d20 !important;
 }
 
 .light .text-secondary {
-  color: #495057;
+  color: #343a40 !important;
 }
 
 .light .text-muted {
-  color: #6c757d;
+  color: #495057 !important;
+}
+
+/* Enhanced light mode text contrast overrides */
+.light .text-light-800 {
+  color: #1a1d20 !important;
+}
+
+.light .text-light-700 {
+  color: #2c3034 !important;
+}
+
+.light .text-light-600 {
+  color: #343a40 !important;
+}
+
+.light .text-light-500 {
+  color: #495057 !important;
+}
+
+.light .text-light-400 {
+  color: #adb5bd !important;
+}
+
+/* Placeholder text improvements for light mode */
+.light .placeholder-light-500::placeholder {
+  color: #495057 !important;
+  opacity: 0.8;
+}
+
+.light .placeholder-light-400::placeholder {
+  color: #6c757d !important;
+  opacity: 0.8;
 }
 
 /* Custom scrollbar - Dark mode */
@@ -79,13 +111,13 @@
   background: #0284c7;
 }
 
-/* Custom scrollbar - Light mode - Better contrast */
+/* Custom scrollbar - Light mode - Softer colors */
 .light ::-webkit-scrollbar {
   width: 8px;
 }
 
 .light ::-webkit-scrollbar-track {
-  background: #dee2e6;
+  background: #e2ddd4;
 }
 
 .light ::-webkit-scrollbar-thumb {
@@ -134,84 +166,79 @@
                 0.0165em 0 0 rgba(2, 132, 199, 0.75),
                 0.033em -0.033em 0 rgba(3, 105, 161, 0.75);
   }
-  90% {
+  100% {
     text-shadow: 0.0165em 0 0 rgba(14, 165, 233, 0.75),
                 -0.0165em -0.0165em 0 rgba(2, 132, 199, 0.75),
-                -0.0165em -0.033em 0 rgba(3, 105, 161, 0.75);
-  }
-  100% {
-    text-shadow: -0.0165em 0 0 rgba(14, 165, 233, 0.75),
-                -0.0165em -0.0165em 0 rgba(2, 132, 199, 0.75),
-                -0.0165em -0.033em 0 rgba(3, 105, 161, 0.75);
+                -0.0165em 0.033em 0 rgba(3, 105, 161, 0.75);
   }
 }
 
-/* Neon text effect */
-.neon-text {
-  text-shadow: 
-    0 0 5px rgba(14, 165, 233, 0.8),
-    0 0 11px rgba(14, 165, 233, 0.5),
-    0 0 16px rgba(14, 165, 233, 0.3);
-}
-
-/* Cyber fonts */
-.cyber-text-orbitron {
-  font-family: 'Orbitron', sans-serif;
-}
-
-.cyber-text-rajdhani {
-  font-family: 'Rajdhani', sans-serif;
-}
-
-/* Clip text effect */
 .clip-text {
-  background: linear-gradient(45deg, #0ea5e9, #0284c7, #0369a1);
-  background-size: 200% auto;
-  color: transparent;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7, #0369a1);
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient 2.7s ease infinite;
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+/* Light mode improvements for clip-text */
+.light .clip-text {
+  background: linear-gradient(135deg, #0369a1, #0284c7, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
 }
 
-/* Glitch text effects */
-.glitch-text {
-  position: relative;
-  display: inline-block;
-  transform-style: preserve-3d;
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.glitch-text::before,
-.glitch-text::after {
+.glitch::before,
+.glitch::after {
   content: attr(data-text);
   position: absolute;
   top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
+  background: transparent;
+  overflow: hidden;
 }
 
-.glitch-active {
-  animation: glitch-skew 0.18s linear infinite alternate-reverse;
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 red;
+  animation: noise-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 blue;
+  animation: noise-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes noise-anim {
+  0% { clip-path: inset(40% 0 61% 0); }
+  20% { clip-path: inset(92% 0 1% 0); }
+  40% { clip-path: inset(43% 0 1% 0); }
+  60% { clip-path: inset(25% 0 58% 0); }
+  80% { clip-path: inset(54% 0 7% 0); }
+  100% { clip-path: inset(58% 0 43% 0); }
+}
+
+@keyframes noise-anim-2 {
+  0% { clip-path: inset(25% 0 58% 0); }
+  20% { clip-path: inset(54% 0 7% 0); }
+  40% { clip-path: inset(58% 0 43% 0); }
+  60% { clip-path: inset(40% 0 61% 0); }
+  80% { clip-path: inset(92% 0 1% 0); }
+  100% { clip-path: inset(43% 0 1% 0); }
 }
 
 .glitch-active::before {
-  animation: glitch-anim-1 0.135s ease infinite;
-  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-  transform: translate(-3.3px, -2.2px);
-  opacity: 0.88;
+  animation: glitch-anim-1 0.22s ease infinite alternate-reverse;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  transform: translate(2.2px, -1.1px);
+  opacity: 0.8;
   color: #00ffaa;
 }
 
@@ -265,9 +292,9 @@
   border: 1px solid rgba(14, 165, 233, 0.15);
 }
 
-/* Glass morphism effect - Light mode */
+/* Glass morphism effect - Light mode - Warmer tones */
 .light .glass {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(253, 253, 252, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(14, 165, 233, 0.15);
@@ -275,7 +302,7 @@
 }
 
 .light .glass-light {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(245, 244, 241, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(14, 165, 233, 0.1);

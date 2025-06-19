@@ -13,134 +13,170 @@ export interface Post {
   category: string;
 }
 
-// Mock data
-const mockPosts: Post[] = [
-  {
-    id: 1,
-    title: "XSSing TypeErrors in Safari",
-    content: `<p>In this post, I'll demonstrate a novel technique for exploiting Safari's handling of JavaScript TypeErrors to perform cross-site scripting attacks.</p>
-    <p>Safari's JavaScript engine has a unique way of handling certain error types that can be leveraged to bypass traditional XSS protections.</p>
-    <h2>The Discovery</h2>
-    <p>While testing error handling in Safari, I noticed that when certain TypeErrors occur within specific contexts, the error message is rendered directly into the DOM without proper sanitization.</p>
-    <pre><code>try {
-  let obj = null;
-  obj.someMethod();
-} catch(e) {
-  console.log(e.message);
-  // The way this error is handled can be exploited
-}</code></pre>
-    <p>This vulnerability exists in Safari versions prior to the latest security patch.</p>`,
-    excerpt: "Exploiting Safari's JavaScript error handling for XSS attacks",
-    created_at: "2023-05-31T10:30:00Z",
-    author: "Security Researcher",
-    category: "xss"
-  },
-  {
-    id: 2,
-    title: "valueOf: Another way to get this",
-    content: `<p>Object's valueOf() method can be used in interesting ways for security research and exploitation.</p>
-    <p>In JavaScript, the valueOf() method is typically used to convert an object to a primitive value. However, it can also be leveraged in unexpected ways.</p>
-    <h2>Exploitation Technique</h2>
-    <p>By overriding valueOf() in a specific way, we can manipulate the context in which code runs:</p>
-    <pre><code>let exploit = {
-  valueOf: function() {
-    // Access to 'this' in an unexpected context
-    return document.cookie;
+// Generate mock posts
+const generateMockPosts = (): Post[] => {
+  const categories = ['xss', 'sqli', 'csrf', 'auth', 'pentest'];
+  const titles = [
+    "XSSing TypeErrors in Safari",
+    "valueOf: Another way to get this",
+    "Making the Unexploitable Exploitable with X-Mixed-Replace on Firefox",
+    "The curious case of the evt parameter",
+    "Hacking rooms",
+    "CSS-Only Tic Tac Toe Challenge",
+    "Advanced SQL Injection in Modern Applications",
+    "CSRF Tokens Bypass Techniques",
+    "JWT Authentication Vulnerabilities",
+    "Server-Side Template Injection (SSTI) Analysis",
+    "Race Conditions in Authentication Systems",
+    "DOM-based XSS in Single Page Applications",
+    "Blind SQL Injection with Time-based Techniques",
+    "Cross-Origin Resource Sharing (CORS) Misconfigurations",
+    "Session Fixation Attacks in Web Applications",
+    "HTTP Parameter Pollution Vulnerabilities",
+    "XML External Entity (XXE) Injection Explained",
+    "Insecure Direct Object References (IDOR) Exploitation",
+    "Command Injection through File Upload",
+    "Local File Inclusion (LFI) to Remote Code Execution",
+    "NoSQL Injection in MongoDB Applications",
+    "GraphQL Security Testing Methodology",
+    "OAuth 2.0 Implementation Vulnerabilities",
+    "WebSocket Security Testing Techniques",
+    "Content Security Policy (CSP) Bypass Methods",
+    "Server-Side Request Forgery (SSRF) Deep Dive",
+    "Prototype Pollution in Node.js Applications",
+    "Deserialization Attacks in Java Applications",
+    "Path Traversal Vulnerabilities Analysis",
+    "Business Logic Flaws in E-commerce Platforms",
+    "API Security Testing with Postman and Burp",
+    "Mobile Application Penetration Testing",
+    "Docker Container Security Assessment",
+    "Kubernetes Security Hardening Guide",
+    "Cloud Security Misconfigurations in AWS",
+    "Red Team Operations: Initial Access Techniques",
+    "Active Directory Penetration Testing",
+    "Network Segmentation Testing Methodology",
+    "Social Engineering Attack Vectors",
+    "Phishing Campaign Development and Analysis",
+    "Wireless Network Security Assessment",
+    "IoT Device Security Testing Framework",
+    "Blockchain Smart Contract Vulnerabilities",
+    "Machine Learning Model Security Testing",
+    "DevSecOps Integration Best Practices",
+    "Incident Response Automation Tools",
+    "Threat Hunting with SIEM Solutions",
+    "Malware Analysis and Reverse Engineering",
+    "Digital Forensics Investigation Techniques",
+    "Zero-Day Vulnerability Research Process"
+  ];
+
+  const excerpts = [
+    "Exploiting Safari's JavaScript error handling for XSS attacks",
+    "Exploring JavaScript's valueOf() method for security implications",
+    "Using X-Mixed-Replace to create exploitable conditions in Firefox",
+    "Exploiting event parameter handling in JavaScript applications",
+    "Analyzing security issues in controlled testing environments",
+    "Security implications of CSS-only interactive implementations",
+    "Advanced techniques for exploiting SQL injection vulnerabilities in modern web applications",
+    "Comprehensive analysis of CSRF token bypass methods and prevention strategies",
+    "Common JWT implementation flaws and exploitation techniques",
+    "Server-side template injection vulnerabilities and exploitation methods",
+    "Race condition vulnerabilities in authentication and session management",
+    "DOM-based XSS vulnerabilities in modern single-page applications",
+    "Blind SQL injection exploitation using time-based detection techniques",
+    "CORS misconfiguration vulnerabilities and their security implications",
+    "Session fixation attack vectors and prevention mechanisms",
+    "HTTP parameter pollution vulnerabilities in web application security",
+    "XML External Entity injection attacks and mitigation strategies",
+    "Insecure direct object reference vulnerabilities and exploitation",
+    "Command injection vulnerabilities through file upload functionality",
+    "Local file inclusion to remote code execution exploitation chains",
+    "NoSQL injection techniques targeting MongoDB and similar databases",
+    "GraphQL security testing methodology and common vulnerabilities",
+    "OAuth 2.0 implementation vulnerabilities and attack vectors",
+    "WebSocket security testing techniques and common vulnerabilities",
+    "Content Security Policy bypass methods and implementation flaws",
+    "Server-side request forgery vulnerabilities and exploitation techniques",
+    "Prototype pollution vulnerabilities in Node.js application security",
+    "Java deserialization attack vectors and exploitation techniques",
+    "Path traversal vulnerability analysis and exploitation methods",
+    "Business logic flaw identification in e-commerce platform security",
+    "API security testing methodology using automated tools",
+    "Mobile application penetration testing framework and methodology",
+    "Docker container security assessment and hardening techniques",
+    "Kubernetes security hardening and vulnerability assessment",
+    "AWS cloud security misconfiguration identification and remediation",
+    "Red team initial access techniques and attack methodology",
+    "Active Directory penetration testing and privilege escalation",
+    "Network segmentation testing methodology and assessment techniques",
+    "Social engineering attack vector analysis and prevention strategies",
+    "Phishing campaign development and effectiveness analysis",
+    "Wireless network security assessment and penetration testing",
+    "IoT device security testing framework and vulnerability assessment",
+    "Blockchain smart contract vulnerability analysis and testing",
+    "Machine learning model security testing and adversarial attacks",
+    "DevSecOps integration best practices and security automation",
+    "Incident response automation tools and workflow optimization",
+    "Threat hunting methodology using SIEM and security analytics",
+    "Malware analysis and reverse engineering techniques",
+    "Digital forensics investigation methodology and tool usage",
+    "Zero-day vulnerability research process and responsible disclosure"
+  ];
+
+  const authors = [
+    "Security Researcher",
+    "Web Security Expert", 
+    "Browser Security Analyst",
+    "JavaScript Security Researcher",
+    "Ethical Hacker",
+    "CSS Security Specialist",
+    "Penetration Tester",
+    "Application Security Engineer",
+    "Bug Bounty Hunter",
+    "Cybersecurity Analyst"
+  ];
+
+  const posts: Post[] = [];
+  const now = new Date();
+
+  for (let i = 1; i <= 50; i++) {
+    const categoryIndex = (i - 1) % categories.length;
+    const titleIndex = (i - 1) % titles.length;
+    const excerptIndex = (i - 1) % excerpts.length;
+    const authorIndex = (i - 1) % authors.length;
+    
+    // Create dates going backwards from now
+    const daysBack = i * 2;
+    const postDate = new Date(now.getTime() - (daysBack * 24 * 60 * 60 * 1000));
+
+    posts.push({
+      id: i,
+      title: titles[titleIndex],
+      content: `<p>This is a comprehensive analysis of ${titles[titleIndex].toLowerCase()}.</p>
+        <p>In this detailed post, we'll explore the technical aspects and security implications of this vulnerability.</p>
+        <h2>Technical Analysis</h2>
+        <p>The vulnerability involves multiple attack vectors and requires careful consideration of the security context.</p>
+        <pre><code>// Example exploitation code
+        function exploit() {
+          // Demonstration of the vulnerability
+          console.log("Security research purposes only");
+        }</code></pre>
+        <h2>Mitigation Strategies</h2>
+        <p>Proper security controls and defensive programming techniques can prevent this type of attack.</p>
+        <h2>Conclusion</h2>
+        <p>Understanding these vulnerabilities is crucial for building secure applications and systems.</p>`,
+      excerpt: excerpts[excerptIndex],
+      created_at: postDate.toISOString(),
+      author: authors[authorIndex],
+      category: categories[categoryIndex]
+    });
   }
+
+  return posts;
 };
 
-// When coerced to a primitive...
-console.log("" + exploit); // This will print cookies!</code></pre>
-    <p>This technique can be combined with other vulnerabilities to escalate attacks in certain environments.</p>`,
-    excerpt: "Exploring JavaScript's valueOf() method for security implications",
-    created_at: "2023-05-12T14:45:00Z",
-    author: "Web Security Expert",
-    category: "xss"
-  },
-  {
-    id: 3,
-    title: "Making the Unexploitable Exploitable with X-Mixed-Replace on Firefox",
-    content: `<p>Firefox's implementation of the X-Mixed-Replace MIME type creates interesting security implications that can turn seemingly safe scenarios into exploitable ones.</p>
-    <p>X-Mixed-Replace is a MIME type that allows a server to replace the content of a page with new content over a single connection. This feature, while useful for certain applications, can also be leveraged for security exploits.</p>
-    <h2>The Vulnerability</h2>
-    <p>When Firefox processes an X-Mixed-Replace stream, it handles document transitions in a way that can lead to context confusion:</p>
-    <pre><code>// Server response with X-Mixed-Replace
-Content-Type: multipart/x-mixed-replace; boundary=boundary
+// Mock data
+const mockPosts: Post[] = generateMockPosts();
 
---boundary
-Content-Type: text/html
-
-&lt;html&gt;&lt;body&gt;First document&lt;/body&gt;&lt;/html&gt;
---boundary
-Content-Type: text/html
-
-&lt;html&gt;&lt;body&gt;Second document with exploit&lt;/body&gt;&lt;/html&gt;
---boundary--</code></pre>
-    <p>This technique can bypass certain security controls that don't account for document replacement.</p>`,
-    excerpt: "Using X-Mixed-Replace to create exploitable conditions in Firefox",
-    created_at: "2023-04-26T09:15:00Z",
-    author: "Browser Security Analyst",
-    category: "csrf"
-  },
-  {
-    id: 4,
-    title: "The curious case of the evt parameter",
-    content: `<p>Event parameters in JavaScript can be manipulated in ways that lead to unexpected security vulnerabilities.</p>
-    <p>When working with event handlers in JavaScript, the event parameter (often named 'evt' or 'e') contains valuable information about the event that occurred. However, this parameter can be manipulated in ways that developers might not expect.</p>
-    <h2>The Vulnerability</h2>
-    <p>Consider this common pattern:</p>
-    <pre><code>element.addEventListener('click', function(evt) {
-  // Using evt.target might be unsafe if not properly validated
-  let targetId = evt.target.id;
-  document.getElementById(targetId).innerHTML = userInput;
-});</code></pre>
-    <p>An attacker can trigger this event with a crafted event object that points to an unexpected target, potentially leading to DOM-based XSS.</p>`,
-    excerpt: "Exploiting event parameter handling in JavaScript applications",
-    created_at: "2023-04-25T11:20:00Z",
-    author: "JavaScript Security Researcher",
-    category: "xss"
-  },
-  {
-    id: 5,
-    title: "Hacking rooms",
-    content: `<p>Secure testing environments (hacking rooms) are essential for ethical security research, but they can sometimes contain unexpected vulnerabilities themselves.</p>
-    <p>Hacking rooms are controlled environments designed for security professionals to practice their skills without causing real-world harm. However, these environments sometimes contain unintended vulnerabilities that can teach valuable lessons.</p>
-    <h2>Common Issues in Hacking Rooms</h2>
-    <p>Some recurring issues I've found in various hacking room setups:</p>
-    <ul>
-      <li>Insufficient isolation between testing environments</li>
-      <li>Leaked credentials in environment variables</li>
-      <li>Outdated dependencies with known vulnerabilities</li>
-      <li>Misconfigured permission boundaries</li>
-    </ul>
-    <p>These issues provide valuable learning opportunities for both room creators and participants.</p>`,
-    excerpt: "Analyzing security issues in controlled testing environments",
-    created_at: "2023-06-17T15:45:00Z",
-    author: "Ethical Hacker",
-    category: "auth"
-  },
-  {
-    id: 6,
-    title: "CSS-Only Tic Tac Toe Challenge",
-    content: `<p>Creating a fully functional Tic Tac Toe game using only CSS presents interesting security implications and demonstrates the power of modern CSS.</p>
-    <p>While this might seem like just a fun exercise, it demonstrates how powerful CSS has become - to the point where it can implement game logic without JavaScript. This has security implications as content security policies (CSP) that block JavaScript but allow unrestricted CSS might still permit interactive functionality.</p>
-    <h2>The Implementation</h2>
-    <p>The key to making this work is using CSS's :checked pseudo-class along with the general sibling combinator (~) and clever labeling:</p>
-    <pre><code>input[type="radio"]:checked ~ .board .cell[for="move-1-1"] {
-  background-image: url('x.svg');
-}
-
-/* Game state tracking through CSS custom properties */
-.board {
-  --moves: 0;
-}</code></pre>
-    <p>This technique demonstrates that restricting JavaScript alone may not be sufficient to prevent all forms of interactivity in a security-sensitive context.</p>`,
-    excerpt: "Security implications of CSS-only interactive implementations",
-    created_at: "2023-04-10T09:30:00Z",
-    author: "CSS Security Specialist",
-    category: "sqli"
-  }
-];
 
 // Mock API functions
 export const useFetchPosts = () => {
