@@ -82,6 +82,79 @@
   color: #adb5bd !important;
 }
 
+/* Gray colors override for light mode - Better contrast with !important */
+.light .text-gray-900 {
+  color: #111827 !important;
+}
+
+.light .text-gray-800 {
+  color: #1f2937 !important;
+}
+
+.light .text-gray-700 {
+  color: #374151 !important;
+}
+
+.light .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+.light .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+.light .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+.light .text-gray-300 {
+  color: #d1d5db !important;
+}
+
+/* Additional specific overrides for common patterns */
+.light .prose {
+  color: #374151 !important;
+}
+
+.light .prose h1,
+.light .prose h2, 
+.light .prose h3,
+.light .prose h4,
+.light .prose h5,
+.light .prose h6 {
+  color: #111827 !important;
+}
+
+.light .prose p {
+  color: #374151 !important;
+}
+
+.light .prose strong {
+  color: #1f2937 !important;
+}
+
+/* Input and form controls */
+.light input, 
+.light textarea, 
+.light select {
+  color: #1f2937 !important;
+}
+
+.light .placeholder-gray-600::placeholder {
+  color: #4b5563 !important;
+  opacity: 0.8;
+}
+
+.light .placeholder-gray-500::placeholder {
+  color: #6b7280 !important;
+  opacity: 0.8;
+}
+
+.light .placeholder-gray-400::placeholder {
+  color: #9ca3af !important;
+  opacity: 0.8;
+}
+
 /* Placeholder text improvements for light mode */
 .light .placeholder-light-500::placeholder {
   color: #495057 !important;

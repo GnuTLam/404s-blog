@@ -21,10 +21,10 @@ const Home: React.FC = () => {
           <h1 className="mb-6 inline-block relative">
             <CyberLogo text="404's Blog" size="xl" glitchIntensity="medium" className="font-cyber text-6xl" />
           </h1>
-          <p className="text-light-600 dark:text-gray-400 mt-6 text-xl font-mono leading-relaxed max-w-2xl mx-auto">
+          <p className="text-gray-700 dark:text-gray-400 mt-6 text-xl font-mono leading-relaxed max-w-2xl mx-auto">
             Cybersecurity research • Ethical hacking • Vulnerability analysis
           </p>
-          <div className="flex items-center justify-center gap-8 mt-8 text-sm text-light-500 dark:text-gray-500">
+          <div className="flex items-center justify-center gap-8 mt-8 text-sm text-gray-600 dark:text-gray-500">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyber-500 rounded-full animate-pulse"></span>
               <span className="font-mono">{loading ? '...' : `${pagination?.total || 0} Articles Published`}</span>
@@ -48,11 +48,11 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <div className="flex-1 min-w-0">
-                <h2 className="text-2xl font-cyber font-bold text-light-800 dark:text-white mb-4">Welcome to the Posts</h2>
+                <h2 className="text-2xl font-cyber font-bold text-gray-900 dark:text-white mb-4">Welcome to the Posts</h2>
               </div>
             </div>
             <div className="flex-1 flex flex-col">
-              <p className="text-light-600 dark:text-gray-300 mb-6 leading-relaxed font-mono flex-1 overflow-hidden">
+              <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed font-mono flex-1 overflow-hidden">
                 <span className="line-clamp-4">
                   Dive deep into the world of cybersecurity with comprehensive guides on web vulnerabilities, 
                   penetration testing techniques, and cutting-edge security research. From XSS exploits to 
@@ -79,8 +79,8 @@ const Home: React.FC = () => {
       <div className="mb-16">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-cyber font-bold text-light-800 dark:text-white mb-2">Featured Research</h2>
-            <p className="text-light-600 dark:text-gray-400 font-mono">Latest discoveries and security insights</p>
+            <h2 className="text-3xl font-cyber font-bold text-gray-900 dark:text-white mb-2">Featured Research</h2>
+            <p className="text-gray-700 dark:text-gray-400 font-mono">Latest discoveries and security insights</p>
           </div>
           <Link 
             to="/blog" 
@@ -111,9 +111,9 @@ const Home: React.FC = () => {
         ) : posts.length === 0 ? (
           <div className="glass-light rounded-2xl p-12 text-center shadow-lg h-full">
             <div className="flex flex-col h-full justify-center">
-              <div className="text-light-400 dark:text-gray-500 text-6xl mb-4">📝</div>
-              <h3 className="text-xl font-cyber font-bold text-light-600 dark:text-gray-400 mb-2">No Posts Available</h3>
-              <p className="text-light-500 dark:text-gray-500 font-tech line-clamp-4 overflow-hidden">Check back soon for new security research and tutorials.</p>
+              <div className="text-gray-500 dark:text-gray-500 text-6xl mb-4">📝</div>
+              <h3 className="text-xl font-cyber font-bold text-gray-700 dark:text-gray-400 mb-2">No Posts Available</h3>
+              <p className="text-gray-600 dark:text-gray-500 font-tech line-clamp-4 overflow-hidden">Check back soon for new security research and tutorials.</p>
             </div>
           </div>
         ) : (
@@ -142,18 +142,18 @@ const Home: React.FC = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-cyber font-bold text-light-800 dark:text-white mb-3 group-hover:text-cyber-600 dark:group-hover:text-cyber-300 transition-colors duration-200 line-clamp-2 flex-grow">
+                    <h3 className="text-xl font-cyber font-bold text-gray-900 dark:text-white mb-3 group-hover:text-cyber-600 dark:group-hover:text-cyber-300 transition-colors duration-200 line-clamp-2 flex-grow">
                       {post.title}
                     </h3>
 
                     {/* Excerpt */}
-                    <p className="text-light-600 dark:text-gray-400 text-sm font-tech leading-relaxed mb-6 line-clamp-3">
+                    <p className="text-gray-700 dark:text-gray-400 text-sm font-tech leading-relaxed mb-6 line-clamp-3">
                       {post.excerpt}
                     </p>
 
                     {/* Metadata */}
                     <div className="flex items-center justify-between pt-4 border-t border-light-300 dark:border-cyber-600/20 mt-auto">
-                      <div className="flex items-center gap-4 text-xs text-light-500 dark:text-gray-500">
+                      <div className="flex items-center gap-4 text-xs text-gray-600 dark:text-gray-500">
                         <span className="font-mono">
                           {new Date(post.created_at).toLocaleDateString('en-GB', {
                             day: '2-digit',
@@ -186,11 +186,11 @@ const Home: React.FC = () => {
                 <span className="text-xl leading-none">👤</span>
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-xl font-cyber font-bold text-light-800 dark:text-white mb-3">About GnuTLam</h3>
+                <h3 className="text-xl font-cyber font-bold text-gray-900 dark:text-white mb-3">About GnuTLam</h3>
               </div>
             </div>
             <div className="flex-1 flex flex-col">
-              <p className="text-light-600 dark:text-gray-300 mb-4 font-mono leading-relaxed flex-1 overflow-hidden">
+              <p className="text-gray-700 dark:text-gray-300 mb-4 font-mono leading-relaxed flex-1 overflow-hidden">
                 <span className="line-clamp-4">
                   Cybersecurity researcher with 5+ years of experience in web application security, 
                   vulnerability research, and penetration testing. Passionate about sharing knowledge 
@@ -219,11 +219,11 @@ const Home: React.FC = () => {
                 <span className="text-xl leading-none">🔔</span>
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-xl font-cyber font-bold text-light-800 dark:text-white mb-3">Stay Updated</h3>
+                <h3 className="text-xl font-cyber font-bold text-gray-900 dark:text-white mb-3">Stay Updated</h3>
               </div>
             </div>
             <div className="flex-1 flex flex-col">
-              <p className="text-light-600 dark:text-gray-300 mb-4 font-mono leading-relaxed flex-1 overflow-hidden">
+              <p className="text-gray-700 dark:text-gray-300 mb-4 font-mono leading-relaxed flex-1 overflow-hidden">
                 <span className="line-clamp-4">
                   Get notified about new research publications, security advisories, and 
                   in-depth technical analyses. No spam, just quality security content.
@@ -234,7 +234,7 @@ const Home: React.FC = () => {
                   <input 
                     type="email" 
                     placeholder="your@email.com" 
-                    className="flex-1 px-4 py-2 bg-light-100 dark:bg-dark-800/80 border border-light-300 dark:border-cyber-600/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyber-500 text-light-800 dark:text-white placeholder-light-500 dark:placeholder-gray-400 font-mono text-sm"
+                    className="flex-1 px-4 py-2 bg-light-100 dark:bg-dark-800/80 border border-light-300 dark:border-cyber-600/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyber-500 text-gray-900 dark:text-white placeholder-gray-600 dark:placeholder-gray-400 font-mono text-sm"
                   />
                   <button className="px-6 py-2 bg-cyber-600 hover:bg-cyber-500 text-white rounded-lg transition-colors duration-200 font-mono font-medium text-sm whitespace-nowrap">
                     Subscribe

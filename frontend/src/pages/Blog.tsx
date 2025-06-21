@@ -54,7 +54,7 @@ const Blog: React.FC = () => {
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="w-7 h-7 flex items-center justify-center rounded-full transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-light-500 dark:text-gray-500 hover:bg-cyber-500/10 hover:text-cyber-500"
+          className="w-7 h-7 flex items-center justify-center rounded-full transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-gray-500 hover:bg-cyber-500/10 hover:text-cyber-500"
         >
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -70,7 +70,7 @@ const Blog: React.FC = () => {
             if (!showPage) {
               if (page === currentPage - 2 || page === currentPage + 2) {
                 return (
-                  <span key={page} className="w-6 text-center text-xs text-light-400 dark:text-gray-600">
+                  <span key={page} className="w-6 text-center text-xs text-gray-500 dark:text-gray-600">
                     ⋯
                   </span>
                 );
@@ -85,7 +85,7 @@ const Blog: React.FC = () => {
                 className={`w-7 h-7 flex items-center justify-center rounded-full text-xs font-medium transition-colors ${
                   currentPage === page
                     ? 'bg-cyber-500 text-white'
-                    : 'text-light-600 dark:text-gray-400 hover:bg-cyber-500/10 hover:text-cyber-500'
+                    : 'text-gray-700 dark:text-gray-400 hover:bg-cyber-500/10 hover:text-cyber-500'
                 }`}
               >
                 {page}
@@ -98,7 +98,7 @@ const Blog: React.FC = () => {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="w-7 h-7 flex items-center justify-center rounded-full transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-light-500 dark:text-gray-500 hover:bg-cyber-500/10 hover:text-cyber-500"
+          className="w-7 h-7 flex items-center justify-center rounded-full transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-gray-600 dark:text-gray-500 hover:bg-cyber-500/10 hover:text-cyber-500"
         >
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -116,13 +116,13 @@ const Blog: React.FC = () => {
       <div className="mb-12 text-center relative">
         <div className="cyber-grid absolute inset-0 opacity-10"></div>
         <div className="relative z-10">
-          <h1 className="text-5xl font-cyber font-bold text-light-800 dark:text-white mb-6 clip-text">
+          <h1 className="text-5xl font-cyber font-bold text-gray-900 dark:text-white mb-6 clip-text">
             Posts
           </h1>
-          <p className="text-light-600 dark:text-gray-400 text-xl max-w-2xl mx-auto font-mono leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-400 text-xl max-w-2xl mx-auto font-mono leading-relaxed">
             Deep dives into cybersecurity, vulnerability research, and ethical hacking techniques
           </p>
-          <div className="flex items-center justify-center gap-6 mt-6 text-sm text-light-500 dark:text-gray-500">
+          <div className="flex items-center justify-center gap-6 mt-6 text-sm text-gray-600 dark:text-gray-500">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-cyber-500 rounded-full animate-pulse"></span>
               <span className="font-mono">{loading ? '...' : `${pagination?.total || 0}`} Articles</span>
@@ -139,8 +139,8 @@ const Blog: React.FC = () => {
       <div className="mb-8">
         <div className="glass-light rounded-2xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-cyber font-bold text-light-800 dark:text-white">Categories</h3>
-            <span className="text-sm text-light-500 dark:text-gray-400 font-mono">
+            <h3 className="text-lg font-cyber font-bold text-gray-900 dark:text-white">Categories</h3>
+            <span className="text-sm text-gray-600 dark:text-gray-400 font-mono">
               {pagination?.total || 0} post{(pagination?.total || 0) !== 1 ? 's' : ''} • Page {currentPage} of {totalPages}
             </span>
           </div>
@@ -152,7 +152,7 @@ const Blog: React.FC = () => {
                 className={`px-4 py-2 rounded-lg text-sm font-mono font-medium transition-all duration-200 ${
                   activeCategory === category.name
                     ? 'bg-cyber-600 text-white shadow-lg shadow-cyber-600/25'
-                    : 'bg-light-200 dark:bg-dark-800/50 text-light-700 dark:text-gray-300 hover:bg-cyber-100 dark:hover:bg-cyber-600/20 hover:text-cyber-700 dark:hover:text-cyber-300'
+                    : 'bg-light-200 dark:bg-dark-800/50 text-gray-800 dark:text-gray-300 hover:bg-cyber-100 dark:hover:bg-cyber-600/20 hover:text-cyber-700 dark:hover:text-cyber-300'
                 }`}
               >
                 {category.label}
@@ -188,9 +188,9 @@ const Blog: React.FC = () => {
         </div>
       ) : currentPosts.length === 0 ? (
         <div className="glass-light rounded-2xl p-12 text-center shadow-lg">
-          <div className="text-light-400 dark:text-gray-500 text-6xl mb-4">📄</div>
-          <h3 className="text-xl font-cyber font-bold text-light-600 dark:text-gray-400 mb-2">No Posts Found</h3>
-          <p className="text-light-500 dark:text-gray-500 font-mono">
+          <div className="text-gray-500 dark:text-gray-500 text-6xl mb-4">📄</div>
+          <h3 className="text-xl font-cyber font-bold text-gray-700 dark:text-gray-400 mb-2">No Posts Found</h3>
+          <p className="text-gray-600 dark:text-gray-500 font-mono">
             {activeCategory === 'all' 
               ? 'No posts available yet.' 
               : `No posts found in the "${categories.find(c => c.name === activeCategory)?.label}" category.`
@@ -230,18 +230,18 @@ const Blog: React.FC = () => {
                       </div>
 
                       {/* Title */}
-                      <h2 className="text-2xl font-cyber font-bold text-light-800 dark:text-white mb-3 group-hover:text-cyber-600 dark:group-hover:text-cyber-300 transition-colors duration-200 line-clamp-2">
+                      <h2 className="text-2xl font-cyber font-bold text-gray-900 dark:text-white mb-3 group-hover:text-cyber-600 dark:group-hover:text-cyber-300 transition-colors duration-200 line-clamp-2">
                         {post.title}
                       </h2>
 
                       {/* Excerpt */}
-                      <p className="text-light-600 dark:text-gray-400 text-sm font-mono leading-relaxed mb-4 line-clamp-3">
+                      <p className="text-gray-700 dark:text-gray-400 text-sm font-mono leading-relaxed mb-4 line-clamp-3">
                         {post.excerpt}
                       </p>
 
                       {/* Metadata */}
                       <div className="flex items-center justify-between pt-4 border-t border-light-300 dark:border-cyber-600/20">
-                        <div className="flex items-center gap-6 text-sm text-light-500 dark:text-gray-500">
+                        <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-500">
                           <div className="flex items-center gap-2">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
